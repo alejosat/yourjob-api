@@ -33,12 +33,12 @@ class JobApplicationController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(StoreJobApplicationRequest $request): JsonResponse
-    {
-        $validated = $request->validated();
+{
+    $validated = $request->validated();
 
-        if ($request->user()->hasRole('job_seeker')) {
-            return response()->json(['message' => 'Only job seekers can apply for vacancies'], 403);
-        }
+    // Verifica que el usuario tenga el rol de 'job_seeker'
+    if ($request->user()->hasRole('job_seeker')) {
+        // Crea la aplicación de trabajo para el usuario solicitante de empleo
         $application = $request->user()->jobSeekerProfile->jobApplications()->create($validated);
 
         return response()->json([
@@ -46,6 +46,11 @@ class JobApplicationController extends Controller
             'data' => $application,
         ], 201);
     }
+
+    // Si el usuario no es un solicitante de empleo, devuelve un error
+    return response()->json(['message' => 'Only job seekers can apply for vacancies'], 403);
+}
+
 
     /**
      * Display the specified resource.

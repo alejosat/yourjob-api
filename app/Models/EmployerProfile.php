@@ -23,6 +23,6 @@ class EmployerProfile extends Model
 
     public function jobVacancies()
     {
-        return $this->hasMany(JobVacancy::class. 'employer_id');
+        return $this->hasMany(JobVacancy::class, 'employer_id');
     }
 }

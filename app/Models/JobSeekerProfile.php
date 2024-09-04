@@ -15,7 +15,7 @@ class JobSeekerProfile extends Model
         'contact_details',
         'education_level',
         'grades',
-        'work_expirience',
+        'work_experience',
     ];
 
     public function user()
@@ -25,6 +25,6 @@ class JobSeekerProfile extends Model
 
     public function jobApplications()
     {
-        return $this->hasMany(JobSeekerProfile::class);
+        return $this->hasMany(JobApplication::class, 'job_seeker_id');
     }
 }
