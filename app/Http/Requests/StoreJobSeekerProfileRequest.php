@@ -11,7 +11,7 @@ class StoreJobSeekerProfileRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class StoreJobSeekerProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'user_id' => 'required|exists:users,id',
+            'age' => 'required|integer|min:18',
+            'contact_details' => 'required|string|max:255',
+            'education_level' => 'required|string|max:255',
+            'grades' => 'nullable|string|max:1000',
+            'work_experience' => 'nullable|string|max:1000',
         ];
     }
 }

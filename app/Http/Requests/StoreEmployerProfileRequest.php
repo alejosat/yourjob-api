@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateJobSeekerProfileRequest extends FormRequest
+class StoreEmployerProfileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,11 +23,9 @@ class UpdateJobSeekerProfileRequest extends FormRequest
     {
         return [
             'user_id' => 'required|exists:users,id',
-            'age' => 'required|integer|min:18',
-            'contact_details' => 'required|string|max:255',
-            'education_level' => 'required|string|max:255',
-            'grades' => 'nullable|string|max:1000',
-            'work_experience' => 'nullable|string|max:1000',
+            'location' => 'required|string|max:255',
+            'industry' => 'required|string|max:255',
+            'number_of_employees' => 'required|integer|min:1',
         ];
     }
 }
