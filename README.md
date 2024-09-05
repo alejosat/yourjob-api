@@ -1,66 +1,111 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistema de Emparejamiento de Recursos Humanos
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este proyecto es un sistema de emparejamiento de recursos humanos desarrollado con Laravel 10 y construido con una arquitectura basada en microservicios. El sistema permite a los solicitantes de empleo postularse a vacantes y a los empleadores publicar vacantes y gestionar aplicaciones.
 
-## About Laravel
+## Requisitos
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- PHP 8.0 o superior
+- Composer
+- MySQL o PostgreSQL
+- Laravel 11
+- Node.js y npm (para el frontend y las herramientas de construcción)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Instalación
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1. **Clona el repositorio:**
+   ```bash
+   git clone https://github.com/alejosat/yourjob-api.git
 
-## Learning Laravel
+   cd nombre-del-repositorio
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+2. **Instala las dependencias de PHP:**
+    ````bash
+    composer install
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+3. **Copia el archivo de configuración del entorno:**
+    ```bash
+    cp .env.example .env
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+4. **Genera la clave de aplicación:**
+    ```bash
+    php artisan key:generate
 
-## Laravel Sponsors
+5. **Configura la base de datos en el archivo `.env`: Ajusta las siguientes variables según tu configuración de base de datos:**
+    ```env
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=nombre_de_base_de_datos
+    DB_USERNAME=usuario
+    DB_PASSWORD=contraseña
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+6. **Ejecuta las migraciones y seeder:**
+    ```bash
+    php artisan migrate:fresh --seed
 
-### Premium Partners
+7. **Instala las dependencias de JavaScript:**
+    ```bash
+    npm install
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+8. **Compila los activos:**
+    ```bash
+    npm run dev
 
-## Contributing
+## Uso
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+* **Inicio del servidor:**
+    ```bash
+    php artisan serve
+    ```
+    La aplicación estará disponible en `http://localhost:8000`.
 
-## Code of Conduct
+* **Rutas de la API:**
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+    * **Registro de usuario:** `POST /api/register`
 
-## Security Vulnerabilities
+    *  **Inicio de sesión:** `POST /api/login`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+    * **Cerrar sesión:** `POST /api/logout` (requiere autenticación)
 
-## License
+* **Perfiles de solicitantes de empleo:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+    * `GET /api/job-seeker-profiles`
+    * `POST /api/job-seeker-profiles`
+    * `GET /api/job-seeker-profiles/{id}`
+    * `PUT /api/job-seeker-profiles/{id}`
+    * `DELETE /api/job-seeker-profiles/{id}`
+
+* **Perfiles de empleadores:**
+
+    * `GET /api/employer-profiles`
+    * `POST /api/employer-profiles`
+    * `GET /api/employer-profiles/{id}`
+    * `PUT /api/employer-profiles/{id}`
+    * `DELETE /api/employer-profiles/{id}`
+    
+* **Vacantes de empleo:**
+
+    * `GET /api/job-vacancies`
+    * `POST /api/job-vacancies`
+    * `GET /api/job-vacancies/{id}`
+    * `PUT /api/job-vacancies/{id}`
+    * `DELETE /api/job-vacancies/{id}`
+
+* **Aplicaciones de trabajo:**
+
+    * `GET /api/job-applications`
+    * `POST /api/job-applications`
+    * `GET /api/job-applications/{id}`
+    * `PUT /api/job-applications/{id}`
+    * `DELETE /api/job-applications/{id}`
+
+## Contribución
+Si deseas contribuir a este proyecto, por favor realiza un fork del repositorio y envía un pull request con tus cambios.
+
+## Licencia
+Este proyecto está licenciado bajo la MIT License.
+
+## Contacto
+Si tienes alguna pregunta o comentario, no dudes en ponerte en contacto conmigo a través de GitHub.
+
+Asegúrate de reemplazar `https://github.com/alejosat/yourjob-api.git` con el nombre real de tu repositorio y ajustar cualquier otra información específica según sea necesario. ¡Espero que te sea útil!
